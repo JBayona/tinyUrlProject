@@ -22,3 +22,7 @@
 .ng-hide.ng-hide-animate {
 	display: none !important;
 }
+
+.checkbox input[type=checkbox]:checked+.checkbox-material .check:before, .checkbox-default input[type=checkbox]:checked+.checkbox-material .check:before {
+    color: #009688 !important;
+}

@@ -1,1 +1,57 @@
-<h1>Hello World!</h1>
+<div class="well bs-component">
+	<div class="row" ng-show="confirmation"> 
+		<div class="alert alert-dismissable alert-success"> 
+			<button type="button" class="close" data-dismiss="alert">×</button> 
+			<p>TinyURL was created!</p> 
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+				<div class="col-md-12 col-sm-12">
+					<form class="form-horizontal" name="tinyForm" ng-submit="makeTiny()">
+		  			<fieldset>
+					  	<div class="form-group">
+					     	<div class="col-sm-10">
+					     		<h3>Enter a long URL to make tiny:</h3>
+					     	</div>
+					    </div>
+					    <div class="form-group" ng-class="{'has-error':(tinyForm.url.$invalid && tinyForm.url.$dirty && submitted)}">
+					      <!--<ng-md-icon icon="person" style="fill: lightgreen" size="32">-->
+					      <label for="url" class="col-sm-1">URL</label>
+					      <div class="col-sm-6">
+					        <input type="text" class="form-control" id="url" name="url" placeholder="URL" ng-model="url.long" required autocomplete="off">
+					      </div>
+					    </div>
+					    <div class="row" ng-show="tinyForm.url.$invalid && tinyForm.url.$dirty && !submitted">
+					    	<div class="col-sm-2"></div>
+					    	<div class="col-sm-10" ng-messages="tinyForm.url.$error">
+					      	<span class="text-danger"><div ng-message="required">This is a required field</div></span>
+					    	</div>
+					    </div>
+					    <div class="form-group" style="margin-top: 0;">
+                <div class="col-md-7">
+                  <div class="checkbox" style="padding: 0px">
+                    <label>
+                      <input type="checkbox" ng-model = "url.aliasSelected"><span class="checkbox-material"></span>
+                      &nbsp;Add Custom Alias?
+                    </label>
+                  </div>
+                </div>
+              </div>
+					    <div class="form-group">
+					      <label for="password" class="col-sm-1">Alias</label>
+					      <div class="col-sm-6">
+					        <input type="text" class="form-control" id="custom" name="custom" placeholder="Custom Alias" ng-model="url.custom" ng-disabled = "!url.aliasSelected" autocomplete="off" required>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <div class=" col-sm-10">
+					        <button type="submit" class="btn btn-primary btn-raised">Make Tiny URL</button>
+					      </div>
+					    </div>
+		  			</fieldset>
+				</form>
+				</div>
+		</div>
+	</div>
+</div>

@@ -113,8 +113,7 @@ body {
   background-color: #34ed46;
 }
 
-/*#pic{ 
-  float:right; 
-  margin:20px; 
-  padding:20px; 
-}*/
+[type=checkbox]:checked+label:before {
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}

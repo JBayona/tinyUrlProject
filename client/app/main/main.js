@@ -10,5 +10,5 @@ angular.module('tinyUrlApp')
       .otherwise({
         redirectTo: '/'
       });
-      $locationProvider.hashPrefix('');;
+      $locationProvider.hashPrefix('');
   });

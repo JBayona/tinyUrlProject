@@ -1,0 +1,51 @@
+<div class="well bs-component">
+	<h3>Tiny URL List</h3>
+	<div class="row">
+    	<div class="col-md-12">
+    		<table class="table table-hover ">
+		      <thead>
+		        <tr>
+		          <th>#</th>
+		          <th>ORIGINAL URL</th>
+		          <th>TINY URL</th>
+		          <th>ACTION</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr ng-repeat="item in tinyList">
+		          <td>{{$index+1}}</td>
+		          <td>
+		          	<input 	type="text" ng-show="item.edit" class="form-control" ng-model="item.originalUrl" />
+		          	<span ng-hide="item.edit">{{item.originalUrl}}</span>
+		          </td>
+		          <td>
+		          	<input type="text" ng-show="item.edit" class="form-control" ng-model="item.tinyUrl" />
+		          	<span ng-hide="item.edit">{{item.tinyUrl}}</span>
+		          </td>
+		          <td>
+		          	<!--a 	href="javascript:void(0);" class="btn-link" 
+		          			ng-hide="item.edit || item.delete"
+		          			ng-click="item.edit = true">
+		          		<i class="material-icons">mode_edit</i>
+		          	</a-->
+		          	<!--span ng-show = "item.edit">
+		          		<a href="javascript:void(0);" ng-click="updateUrl(item._id, item.originalUrl, item.tinyUrl)" class="btn-link"><i class="material-icons">save</i></a>
+	              		<a href="javascript:void(0);" class="btn-link" ng-click="item.edit = false">
+	              			<i class="material-icons">restore</i>
+	              		</a>
+		          	</span-->
+		          	<span> <!--ng-hide = "item.edit"-->
+		          		<a 	href="javascript:void(0);" class="btn-link" 
+		          				ng-click = "deleteUrl(item._id, item.originalUrl, item.tinyUrl)"><i class="material-icons">delete</i></a>
+		          	</span>
+		          	<!--span>
+			          	<a 	href="javascript:void(0);" class="btn-link" 
+			          				ng-click = "getUrlDetails(item._id, item.originalUrl, item.tinyUrl)"><i class="material-icons">search</i></a>
+		          	</span-->
+		          </td>
+		        </tr>
+		      </tbody>
+    		</table>
+    	</div>
+    </div>	
+</div>

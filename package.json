@@ -15,7 +15,8 @@
     "lodash": "~3.10.1",
     "ejs": "~0.8.4",
     "composable-middleware": "^0.3.0",
-    "connect-mongo": "^0.8.1"
+    "connect-mongo": "^0.8.1",
+    "mongodb": "^2.1.16"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
