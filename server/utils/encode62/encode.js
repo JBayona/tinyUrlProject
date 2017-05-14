@@ -8,7 +8,7 @@ const ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
     224, then 244/62^1(62) = 3, with remainder of 38. So we have:
     [2 3 38] => Using our map we obtain the shorten which is "23C" ("C" has the 38th place)
     */
-module.exports.encodeBase64 = function encodeBase64(n){
+module.exports.encodeBase64 = function(n){
 	let digits = [];
   let remainder = null;
   let result = '';

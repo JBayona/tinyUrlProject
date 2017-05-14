@@ -5,6 +5,7 @@ angular.module('tinyUrlApp')
     $scope.submitted = false;
     $scope.url = {};
     $scope.tinyCreated = {};
+    $scope.tinyNotAvailableMsg = false;
     $scope.makeTiny = function(){
       $scope.submitted = true;
       TinyCalls.postTinyUrl($scope.url.long, $scope.url.custom).then(function(data){
@@ -12,6 +13,7 @@ angular.module('tinyUrlApp')
           $scope.tinyForm.$setPristine();
           $scope.url = {};
           $scope.tinyCreated = data;
+          $scope.tinyNotAvailableMsg = data.notAvailable ? true: false;
           $scope.tinyCreated.completeUrl = window.location.origin + '/' + data.tinyUrl;
           /*$timeout(function(){
               $scope.confirmation = false;

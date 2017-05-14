@@ -2,7 +2,7 @@
 
 const ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
 
-module.exports.decodeBase64 = function decodeBase64(str){
+module.exports.decodeBase64 = function(str){
   str = str.split('');
   let numberFormat = [];
   let convert = 0;
