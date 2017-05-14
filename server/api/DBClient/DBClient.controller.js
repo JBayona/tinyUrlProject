@@ -4,8 +4,12 @@ var _ = require('lodash');
 var url = require('url');
 var mongodb = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
+var autoIncrement = require("mongodb-autoincrement");
 var format = require('util').format;
 var urlDB = 'mongodb://127.0.0.1:27017/mydb';
+var encode = require('./../../utils/encode62/encode');
+var decode = require('./../../utils/decode62/decode');
+var sequence = require('./../../utils/sequence/getSequence');
 
 // Get list of DBClients
 exports.index = function(req, res) {
@@ -14,33 +18,33 @@ exports.index = function(req, res) {
 
 module.exports.storeDB = function(request, response) {
 	var data = request.body;
-    console.log(data);
-
-    console.log("Get POST data : " + JSON.stringify(data));
+    //console.log(data);
+    //console.log("Get POST data : " + JSON.stringify(data));
     var originalUrl = data.url;
     var tinyUrl = data.alias;
     var visited = 0;
-    console.log('originalUrl : ' + originalUrl + ' ; tinyUrl : ' + tinyUrl);
-
-    MongoClient.connect(urlDB, function(err, db) {
-      if(err) throw err;
-
-      var collection = db.collection('tinyUrl');
-      collection.find().toArray(function(err, results) {
-              console.dir(results);
-              db.close();
-       });
-      collection.insert({'originalUrl':originalUrl,'tinyUrl':tinyUrl, 'visited' : 0}, function(err, docs) {
-          collection.count(function(err, count) {
-              console.log(format('count = %s', count));
-          });
-          collection.find().toArray(function(err, results) {
-              console.dir(results);
-              db.close();
-          });
+    //console.log('originalUrl : ' + originalUrl + ' ; tinyUrl : ' + tinyUrl);
+      sequence.getNextSequenceValue("sequenceid").then(function(seqId){
+      	//Just to test encoding and decoding functions
+      	/*var test = encode.encodeBase64(seqId);
+      	console.log('Encode = ' + test);
+      	console.log('Decode =' + decode.decodeBase64(test));*/
+      	MongoClient.connect(urlDB, function(err, db) {
+      		if(err) throw err;
+      		var collection = db.collection('tinyUrl');
+  				/*collection.find().toArray(function(err, results) {
+	          console.dir(results);
+	          db.close();
+     			});*/
+     			collection.insert({ //insert
+	      		'originalUrl':originalUrl,
+	      		'tinyUrl':tinyUrl || encode.encodeBase64(seqId), 
+	      		'visited' : 0
+      			}, function(err, docs) {
+      				response.json(docs.ops[0]);
+      		});
+      	});
       });
-  });
-  response.json(data);
 }
 
 module.exports.showAll = function(request, response){
@@ -127,7 +131,11 @@ module.exports.searchDB = function(request, response) {
 
 // Redirect to the real url
 function redirect(url, response) {
-    console.log('redirect to ' + url);
-    response.writeHead(301, {Location: 'http://' + url});
-    response.end();
+	let redirect = url;
+	if(url.indexOf('http') === -1 && url.indexOf('https') === -1){
+		redirect = 'http://' + url;
+	}
+  console.log('redirect to ' + redirect);
+  response.writeHead(301, {Location: redirect}); //{Location: 'http://' + url}
+  response.end();
 }

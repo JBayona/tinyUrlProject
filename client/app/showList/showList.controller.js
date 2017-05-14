@@ -6,6 +6,9 @@ angular.module('tinyUrlApp')
   	var getListUrls = function(){
   		TinyCalls.getUrlList().then(function(data){
   			$scope.tinyList = data;
+  			$scope.tinyList.forEach(function(url){
+  				url.completeUrl = window.location.origin + '/' + url.tinyUrl
+  			});
   		});
   	};
 
