@@ -26,3 +26,17 @@
 .checkbox input[type=checkbox]:checked+.checkbox-material .check:before, .checkbox-default input[type=checkbox]:checked+.checkbox-material .check:before {
     color: #009688 !important;
 }
+
+/*Pagination Color*/
+.pagination > .active > a, 
+.pagination > .active > span, 
+.pagination > .active > a:hover, 
+.pagination > .active > span:hover, 
+.pagination > .active > a:focus, 
+.pagination > .active > span:focus {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #009687;
+    border-color: #009687;
+}

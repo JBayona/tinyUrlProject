@@ -1,4 +1,15 @@
 <div class="well bs-component">
+	<div class="col-md-12">
+			<pagination  
+				class="pagination-sm text-right"
+				max-size="10" 
+				boundary-links="true" 
+				items-per-page="paginationOps.itemsPerPage" 
+				total-items="tinyList.length" 
+				ng-model="paginationOps.currentPage"
+				ng-change="paginationOps.currentPage*paginationOps.itemsPerPage">
+			</pagination>
+	</div>
 	<h3>Tiny URL List</h3>
 	<div class="row">
     	<div class="col-md-12">
@@ -12,7 +23,7 @@
 		        </tr>
 		      </thead>
 		      <tbody>
-		        <tr ng-repeat="item in tinyList">
+		        <tr ng-repeat="item in tinyList | startFrom:(paginationOps.currentPage-1)*paginationOps.itemsPerPage | limitTo: paginationOps.itemsPerPage">
 		          <td>{{$index+1}}</td>
 		          <td>
 		          	<input 	type="text" ng-show="item.edit" class="form-control" ng-model="item.originalUrl" />

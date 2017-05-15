@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('tinyUrlApp')
-  .controller('ShowListCtrl', ['$scope','$http','$timeout', 'TinyCalls',function ($scope,$http,$timeout, TinyCalls) {
+  .controller('ShowListCtrl', ['$scope','$http','$timeout', '$filter', 'TinyCalls',function ($scope,$http,$timeout, $filter,TinyCalls) {
     $scope.tinyList = [];
+    $scope.paginationOps = {
+      itemsPerPage: 10,
+      currentPage : 1
+    };
   	var getListUrls = function(){
   		TinyCalls.getUrlList().then(function(data){
   			$scope.tinyList = data;
