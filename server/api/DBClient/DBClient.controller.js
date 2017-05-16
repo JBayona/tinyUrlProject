@@ -109,7 +109,7 @@ module.exports.searchDB = function(request, response) {
     mongoUtil.findElementBD(function(result){
     	if(result){
     		id = result['_id'];
-    		console.log('Id encontrado =' + id);
+    		console.log('Found id =' + id);
     		mongoUtil.countUrlVisited(function(result){
     			//Do updated things
     			console.log('Updated Clicks');
