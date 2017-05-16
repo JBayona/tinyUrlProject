@@ -20,8 +20,6 @@ module.exports.showList = function(callBack){
 	this.connectToServer(function(err, db){
 		if(err) throw err;
     db.collection('tinyUrl').find().toArray(function(error, results) {
-      //response.send(results);
-      //db.close();
       return callBack(results);
     });
 	});
@@ -31,9 +29,6 @@ module.exports.showDetailUrl = function(callBack, id){
 	this.connectToServer(function(err, db){
 		if(err) throw err;
 		db.collection('tinyUrl').findOne({_id : new mongodb.ObjectID(id)}, function(error, result) {
-        //console.log(result);
-        //response.send(result);
-        //db.close();
         return callBack(result);
     });
 	});
@@ -44,14 +39,10 @@ module.exports.removeUrl = function(callBack, id){
 		 if(err) throw err;
 		 db.collection('tinyUrl').deleteOne({_id : new mongodb.ObjectID(id)}, function(error, result){
       if (error){
-        //response.statusCode = 403;
-        //response.send(error);
         return callBack(error);
       }else{
       	return callBack();
       }
-      //response.send({});
-      //db.close();
     });
 	});
 }
@@ -61,8 +52,6 @@ module.exports.updateUrl = function(callBack, id, item){
 		if(err) throw err;
     db.collection('tinyUrl').updateOne({_id : new mongodb.ObjectID(id)}, {$set: item},function(error, result){
       console.log('Information updated');
-      //response.json(result);
-      //db.close();
       return callBack(result);
     });
 	});
@@ -81,7 +70,6 @@ module.exports.insertDB = function(callBack, payload){
 	this.connectToServer(function(err, db) {
 		if(err) throw err;
 		db.collection('tinyUrl').insert(payload, function(err, docs){
-		    //response.json(docs.ops[0]);
 		    return callBack(docs.ops[0]);
 		});
 	});

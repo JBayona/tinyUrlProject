@@ -18,8 +18,6 @@ exports.index = function(req, res) {
 };
 
 module.exports.storeDB = function(request, response) {
-	//console.log(data);
-  //console.log("Get POST data : " + JSON.stringify(data));
 	var data = request.body;
   var originalUrl = data.url;
   var tinyUrl = data.alias;
@@ -34,10 +32,6 @@ module.exports.storeDB = function(request, response) {
   	mongoUtil.findElementBD(function(result){
   		if(result){
   			sequence.getNextSequenceValue("sequenceid").then(function(seqId){
-  				//Just to test encoding and decoding functions
-			    	/*var test = encode.encodeBase64(seqId);
-			    	console.log('Encode = ' + test);
-			    	console.log('Decode =' + decode.decodeBase64(test));*/
 			    	payload['tinyUrl'] = encode.encodeBase64(seqId);
 			    	mongoUtil.insertDB(function(result){
 			    		result.notAvailable = true;
@@ -101,32 +95,21 @@ module.exports.updateElement = function(request, response){
 module.exports.searchDB = function(request, response) {
     var pathname = url.parse(request.url).pathname;
     var id = null;
-    console.log('Request URL =' + request.url);
-    console.log('Path name = ' + pathname);
     pathname = pathname.substring(1);
     var criteria = {'tinyUrl':pathname};
-    console.log('Search real url for tinyUrl : ' + pathname);
     mongoUtil.findElementBD(function(result){
     	if(result){
     		id = result['_id'];
-    		console.log('Found id =' + id);
     		mongoUtil.countUrlVisited(function(result){
     			//Do updated things
-    			console.log('Updated Clicks');
-    			console.log(result);
     		},id);
-    		console.log(result);
     		var realUrl = result['originalUrl'];
-    		console.log('Found the real url ' + realUrl);
         redirect(realUrl, response);
-        //db.close();
     	}else{
-        console.log('Not found Testing');
         if (request.accepts('html')) {
           response.render('404_Custom', { url: request.url });
           return;
         }
-        //db.close();
       }
     }, criteria);
 }
@@ -137,7 +120,6 @@ function redirect(url, response) {
 	if(url.indexOf('http') === -1 && url.indexOf('https') === -1){
 		redirect = 'http://' + url;
 	}
-  console.log('redirect to ' + redirect);
   response.writeHead(301, {Location: redirect}); //{Location: 'http://' + url}
   response.end();
 }
