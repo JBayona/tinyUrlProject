@@ -1,7 +1,20 @@
-<div class="well bs-component">
-	<div class="col-md-12">
+<div class="well bs-component ">
+	<div class="col-md-12 text-right">
+		<div class="col-md-3 form-group">
+      <!--label for="select111" class="col-md-4 control-label">Select</label>
+      <div class="col-md-5">
+        <select ng-model ="paginationOps.itemsPerPage" id="select111" class="form-control">
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+          <option>20</option>
+          <option>25</option>
+        </select>
+      </div-->
+    </div>
+		<div class="col-md-4">
 			<pagination  
-				class="pagination-sm text-right"
+				class="pagination-sm"
 				max-size="10" 
 				boundary-links="true" 
 				items-per-page="paginationOps.itemsPerPage" 
@@ -9,6 +22,9 @@
 				ng-model="paginationOps.currentPage"
 				ng-change="paginationOps.currentPage*paginationOps.itemsPerPage">
 			</pagination>
+		</div>
+	</div>
+	<div class="col-md-12">
 	</div>
 	<h3>Tiny URL List</h3>
 	<div class="row">
@@ -19,7 +35,8 @@
 		          <th>#</th>
 		          <th>ORIGINAL URL</th>
 		          <th>TINY URL</th>
-		          <th>ACTION</th>
+		          <th>VISITED</th>
+		          <!--th>ACTION</th-->
 		        </tr>
 		      </thead>
 		      <tbody>
@@ -34,6 +51,9 @@
 		          	<a href= "{{item.completeUrl}}">{{item.completeUrl}}</a>
 		          	<!--span ng-hide="item.edit">{{item.tinyUrl}}</span-->
 		          </td>
+		          <!--td>
+		          	<span ng-hide="item.edit">{{item.visited}}</span>
+		          </td-->
 		          <td>
 		          	<!--a 	href="javascript:void(0);" class="btn-link" 
 		          			ng-hide="item.edit || item.delete"

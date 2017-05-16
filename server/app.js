@@ -12,6 +12,7 @@ var config = require('./config/environment');
 
 // Setup server
 var app = express();
+app.set('etag', false);
 var server = require('http').createServer(app);
 
 require('./config/express')(app);

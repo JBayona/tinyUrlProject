@@ -86,3 +86,17 @@ module.exports.insertDB = function(callBack, payload){
 		});
 	});
 }
+
+module.exports.countUrlVisited = function(callBack, id){
+	this.connectToServer(function(err, db){
+		if(err) throw err;
+    db.collection('tinyUrl').findAndModify(
+    	{_id : new mongodb.ObjectID(id)},
+    	[],
+    	{$inc:{visited:1}},
+    	{ new:true },
+    	function(error, result){
+      return callBack(result);
+    });
+	});
+}

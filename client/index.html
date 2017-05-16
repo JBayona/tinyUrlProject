@@ -48,14 +48,14 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">Tiny URL</a>
+            <!--a class="navbar-brand" href="#/">Tiny URL</a-->
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li><a href="#/"></a></li> <!--ng-class="{'active':activeMenu === '/main'}"-->
-              <li><a href="#/showList">Show List</a></li> <!--ng-class="{'active':activeMenu === '/control'}"-->
+              <li ng-class = "{'active': activeMenu === '/'}"><a href="#/">Tiny URL</a></li> 
+              <li ng-class = "{'active': activeMenu === '/showList'}"><a href="#/showList">Show List</a></li>
             </ul>
           </div>
         </div>

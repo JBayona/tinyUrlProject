@@ -100,6 +100,7 @@ module.exports.updateElement = function(request, response){
 // Retrive the real url from db based on the tiny pathname from request
 module.exports.searchDB = function(request, response) {
     var pathname = url.parse(request.url).pathname;
+    var id = null;
     console.log('Request URL =' + request.url);
     console.log('Path name = ' + pathname);
     pathname = pathname.substring(1);
@@ -107,6 +108,13 @@ module.exports.searchDB = function(request, response) {
     console.log('Search real url for tinyUrl : ' + pathname);
     mongoUtil.findElementBD(function(result){
     	if(result){
+    		id = result['_id'];
+    		console.log('Id encontrado =' + id);
+    		mongoUtil.countUrlVisited(function(result){
+    			//Do updated things
+    			console.log('Updated Clicks');
+    			console.log(result);
+    		},id);
     		console.log(result);
     		var realUrl = result['originalUrl'];
     		console.log('Found the real url ' + realUrl);
