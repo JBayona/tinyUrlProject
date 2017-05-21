@@ -19,13 +19,29 @@
 					      <!--<ng-md-icon icon="person" style="fill: lightgreen" size="32">-->
 					      <label for="url" class="col-sm-1">URL</label>
 					      <div class="col-sm-6">
-					        <input type="text" class="form-control" id="url" name="url" placeholder="URL" ng-model="url.long" required autocomplete="off">
+					        <input 	type="url" 
+					        				class="form-control" 
+					        				id="url" name="url" 
+					        				placeholder="URL" 
+					        				ng-model="url.long"
+					        				required  
+					        				autocomplete="off">
 					      </div>
+					      <!--div role="alert">
+							    <span class="error" ng-show="tinyForm.url.$error.required">
+							      Required!</span>
+							    <span class="error" ng-show="tinyForm.url.$error.url">
+							      Not valid url!</span>
+							  </div-->
+				       	<!--span class="error" ng-show="tinyForm.url.$error.required">Required!</span>
+						    <span class="error" ng-show="tinyForm.url.$error.url">Not valid url!</span>
+						    <span>{{tinyForm.input.$valid}}</span-->
 					    </div>
-					    <div class="row" ng-show="tinyForm.url.$invalid && tinyForm.url.$dirty && !submitted">
+					    <div class="row"> <!--ng-show="tinyForm.url.$invalid && tinyForm.url.$dirty && !submitted"-->
 					    	<div class="col-sm-2"></div>
-					    	<div class="col-sm-10" ng-messages="tinyForm.url.$error">
-					      	<span class="text-danger"><div ng-message="required">This is a required field</div></span>
+					    	<div class="col-sm-10"> <!--ng-messages="tinyForm.url.$error"-->
+					      	<span class="text-danger" ng-show="tinyForm.url.$error.required"><div>This is a required field</div></span>
+					      	<span class="text-danger" ng-show="tinyForm.url.$error.url"><div>Not valid url!</div></span>
 					    	</div>
 					    </div>
 					    <div class="form-group" style="margin-top: 0;">

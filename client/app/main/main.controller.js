@@ -15,10 +15,10 @@ angular.module('tinyUrlApp')
           $scope.tinyCreated = data;
           $scope.tinyNotAvailableMsg = data.notAvailable ? true: false;
           $scope.tinyCreated.completeUrl = window.location.origin + '/' + data.tinyUrl;
-          /*$timeout(function(){
-              $scope.confirmation = false;
-          },3000);*/
       });
+
+      //TinyCalls.postStatisticsDomain($scope.url.long);
+
     };
 
   }]);

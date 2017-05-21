@@ -19,7 +19,7 @@ module.exports.getDB = function(){
 module.exports.showList = function(callBack){
 	this.connectToServer(function(err, db){
 		if(err) throw err;
-    db.collection('tinyUrl').find().toArray(function(error, results) {
+    db.collection('tinyUrl').find().sort({date: -1}).toArray(function(error, results) {
       return callBack(results);
     });
 	});
@@ -82,6 +82,20 @@ module.exports.countUrlVisited = function(callBack, id){
     	{_id : new mongodb.ObjectID(id)},
     	[],
     	{$inc:{visited:1}},
+    	{ new:true },
+    	function(error, result){
+      return callBack(result);
+    });
+	});
+}
+
+module.exports.countURLShorten = function(callBack, id){
+	this.connectToServer(function(err, db){
+		if(err) throw err;
+    db.collection('tinyUrl').findAndModify(
+    	{_id : new mongodb.ObjectID(id)},
+    	[],
+    	{$inc:{shorten:1}},
     	{ new:true },
     	function(error, result){
       return callBack(result);

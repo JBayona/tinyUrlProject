@@ -31,4 +31,18 @@ angular.module('tinyUrlApp')
       return Proxy.deleteCall('/tinyUrl/'+ id);
     };
 
+    /*Statistics*/
+    this.postStatisticsDomain = function(domain){
+      if(domain.indexOf('mx')){
+        domain = domain.slice(0, domain.indexOf('mx')+2);
+      }else if(domain.indexOf('com')){
+        domain = domain.slice(0, domain.indexOf('com')+3);
+      }
+      var param = {
+        domain : domain
+      };
+      console.log(param);
+      //return Proxy.postCall(param, '/tinyUrl');
+    };
+
   }]);

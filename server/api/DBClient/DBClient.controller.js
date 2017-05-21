@@ -25,7 +25,9 @@ module.exports.storeDB = function(request, response) {
   var criteria = null;
   var payload = {
     		'originalUrl':originalUrl, 
-    		'visited' : 0
+    		'visited' : 0,
+    		'date' : new Date(),
+    		'shorten': 0
   };
   if(tinyUrl){
   	criteria = {tinyUrl : tinyUrl};
@@ -46,12 +48,71 @@ module.exports.storeDB = function(request, response) {
   		}
   	}, criteria)
   }else{
-  	sequence.getNextSequenceValue("sequenceid").then(function(seqId){
-    	payload['tinyUrl'] = encode.encodeBase64(seqId);
-    	mongoUtil.insertDB(function(result){
+  	//criteria = {tinyUrl : tinyUrl};
+  	console.log('Random section');
+  	//console.log('Aleatorio =' + criteria);
+  	//sequence.getNextSequenceValue("sequenceid").then(function(seqId){
+    	//payload['tinyUrl'] = encode.encodeBase64(seqId);
+    	//console.log(seqId);
+    	//console.log(encode.encodeBase64(seqId));
+    	/*mongoUtil.insertDB(function(result){
     		response.json(result);
-    	}, payload)
-    });
+    	}, payload)*/
+    //});
+
+    //Fisrt we need to check if the URL already exists
+    var findElement = {originalUrl : originalUrl};
+    var id = null;
+    mongoUtil.findElementBD(function(result){
+    	if(result){
+    		//Update shorten counter
+				id = result['_id'];
+				mongoUtil.countURLShorten(function(result){
+					//Do updated things
+				},id);
+    		response.json(result);
+    	}else{
+    		//Refractor this code, we will refactor this later due to time
+    		sequence.getNextValue("sequenceid").then(function(seqId){
+		    	var encoded = encode.encodeBase64(seqId);
+		    	criteria = {tinyUrl : encoded};
+		    	console.log('Resultado de Obtener');
+		    	console.log(seqId);
+		    	console.log('Codificado');
+		    	console.log(encoded);
+		    	mongoUtil.findElementBD(function(result){
+		  			if(result){
+		  				console.log('Econtrado!!');
+		  				mongoUtil.countURLShorten
+		  				mongoUtil.showList(function(results){
+		  					var ids = results.map(function(item){
+		  						console.log(item);
+		  						return decode.decodeBase64(item.tinyUrl);;
+		  					});
+		  					console.log('Array = ');
+		  					console.log(ids);
+		  					var max = Math.max.apply(null, ids);
+		  					console.log('Max = ' + max);
+		  					sequence.updateNextSequenceValue("sequenceid", max+1).then(function(Idseq){
+								payload['tinyUrl'] = encode.encodeBase64(Idseq);
+								console.log('Actualizado');
+								console.log('seqId =' + Idseq);
+								console.log('Codificado =' + JSON.stringify(payload));
+					    	mongoUtil.insertDB(function(result){
+						    		response.json(result);
+						    	}, payload)
+								});
+		  				});
+		  			}else{
+		  				payload['tinyUrl'] = encoded;
+		  				mongoUtil.insertDB(function(result){
+						    		response.json(result);
+						    	}, payload);
+		  			}
+		  		},criteria);
+    		});
+    	}
+    }, findElement);
   }
 }
 

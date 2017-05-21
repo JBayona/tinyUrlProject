@@ -35,7 +35,8 @@
 		          <th>#</th>
 		          <th>ORIGINAL URL</th>
 		          <th>TINY URL</th>
-		          <!--th>VISITED</th-->
+		          <th>VISITED</th>
+		          <th># SHORTEN</th>
 		          <th>ACTION</th>
 		        </tr>
 		      </thead>
@@ -51,9 +52,12 @@
 		          	<a href= "{{item.completeUrl}}">{{item.completeUrl}}</a>
 		          	<!--span ng-hide="item.edit">{{item.tinyUrl}}</span-->
 		          </td>
-		          <!--td>
+		          <td>
 		          	<span ng-hide="item.edit">{{item.visited}}</span>
-		          </td-->
+		          </td>
+		          <td>
+		          	<span ng-hide="item.edit">{{item.shorten}}</span>
+		          </td>
 		          <td>
 		          	<!--a 	href="javascript:void(0);" class="btn-link" 
 		          			ng-hide="item.edit || item.delete"
@@ -80,4 +84,7 @@
     		</table>
     	</div>
     </div>	
+</div>
+<div class="well bs-component ">
+	<h3>Details:</h3>
 </div>
